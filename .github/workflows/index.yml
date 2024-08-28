@@ -26,6 +26,12 @@ jobs:
             git pull origin master
             git status
             rm -rf .env
+            echo "HOST=0.0.0.0" >> .env
+            echo "PORT=1337" >> .env
+            echo "APP_KEYS=wfqjKRc/939JrMh8ixPMrQ==,2JvoVhr8k75BGnP83s0iRg==,LRPRc9btN27FE54aIUTWuQ==,T9AlwYU8Ix5ePRcLNG5jow==" >> .env
+            echo "API_TOKEN_SALT=6p1c5J9J53Oy2hKsRJXjgw==" >> .env
+            echo "ADMIN_JWT_SECRET=gelDa23sSng91FrwmD8fxQ==" >> .env
+            echo "TRANSFER_TOKEN_SALT=kTI94k5rsvpu1CEs3f1qQw==" >> .env
             echo "NODE_ENV=production" >> .env
             echo "DATABASE_CLIENT=sqlite" >> .env
             echo "DATABASE_FILENAME=.tmp/data.db" >> .env
