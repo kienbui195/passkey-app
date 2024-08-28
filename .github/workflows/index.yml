@@ -19,6 +19,8 @@ jobs:
           script: |
             whoami
             cd ~/project/passkey-app
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/github_key
             git checkout .
             git clean -df
             git pull origin master
@@ -30,5 +32,7 @@ jobs:
             echo "JWT_SECRET=tfc63NLXH+buJ9Si9S/GLw==" >> .env
             echo "BE_URL=https://passkey.kiendev.click" >> .env
             echo "APP_SECRET_KEY=${{secrets.APP_SECRET_KEY}}" >> .env
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             yarn production-install
             pm2 restart PassKey
