@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "strapi develop",
     "dev-server": "strapi develop --watch-admin",
+    "production-install": "yarn && cd src/plugins/password-field && yarn && yarn build && cd ../../../ && yarn build",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi",

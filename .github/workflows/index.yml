@@ -1,0 +1,34 @@
+name: Remote ssh command (for main branch) # đặt tên gì cũng được nên có ý nghĩa
+on:
+  push:
+    branches:
+      - master # Tracking thay đổi trên branch nào
+jobs:
+  build:
+    name: Build PassKey enviroment development # đặt tên gì cũng được nên có ý nghĩa
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEV_SSH_HOST }} # IP của server
+          username: ${{ secrets.DEV_USERNAME }} # username login vào server
+          key: ${{ secrets.DEV_SSH_KEY }} # Private Key để ssh vào server sử dụng nội dung trong file local_key
+          port: ${{ secrets.DEV_PORT }} # Port của server
+          # Shell script để running trên server
+          script: |
+            whoami
+            cd ~/project/passkey-app
+            git checkout .
+            git clean -df
+            git pull origin master
+            git status
+            rm -rf .env
+            echo "NODE_ENV=production" >> .env
+            echo "DATABASE_CLIENT=sqlite" >> .env
+            echo "DATABASE_FILENAME=.tmp/data.db" >> .env
+            echo "JWT_SECRET=tfc63NLXH+buJ9Si9S/GLw==" >> .env
+            echo "BE_URL=https://passkey.kiendev.click" >> .env
+            echo "APP_SECRET_KEY=${{secrets.APP_SECRET_KEY}}" >> .env
+            yarn production-install
+            pm2 restart PassKey
