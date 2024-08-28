@@ -20,7 +20,7 @@ jobs:
             whoami
             cd ~/project/passkey-app
             eval "$(ssh-agent -s)"
-            ssh-add ~/.ssh/github_key
+            ssh-add ~/.ssh/ssh_key
             git checkout .
             git clean -df
             git pull origin master
