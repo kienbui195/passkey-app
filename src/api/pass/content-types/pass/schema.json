@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "passes",
+  "info": {
+    "singularName": "pass",
+    "pluralName": "passes",
+    "displayName": "Pass",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "app_name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "url": {
+      "type": "text"
+    },
+    "account": {
+      "type": "string",
+      "required": true
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user"
+    },
+    "password": {
+      "type": "customField",
+      "customField": "plugin::password-field.password",
+      "options": {
+        "options": true
+      }
+    }
+  }
+}
